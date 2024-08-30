@@ -8,3 +8,7 @@ export const intMask = {
 export const idMask = {
   mask: '000000',
 };
+
+export const cepMask = {
+  mask: '00000-000'
+}

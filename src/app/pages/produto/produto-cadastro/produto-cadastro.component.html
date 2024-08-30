@@ -1,0 +1,62 @@
+<cl-page-layout [title]="'Cadastro de produto'">
+  <ng-container leftActions>
+    <cl-back-action></cl-back-action>
+  </ng-container>
+
+  <ng-container rightActions>
+    <cl-save-add-action (saveAddEmitter)="save(true)"></cl-save-add-action>
+    <cl-save-action (saveEmitter)="save()"></cl-save-action>
+  </ng-container>
+
+  <ng-container content>
+    <cl-form-fields-list [fields]="cadastroFields" [form]="cadastroForm" [disableWatch]="true"></cl-form-fields-list>
+
+    <div class="form-fields">
+      <div class="imagem">
+        <input (change)="imageReload()" id="arquivo" type="file" accept="image/png" style="display:none;"/>
+        <span class="titulo">Imagem</span>
+        <img (click)="fileBrowser()" [src]="tmpImg" height="300px"
+          width="350px">
+        <div class="botoesImagem">
+          <button mat-mini-fab (click)="fileBrowser()">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-mini-fab (click)="removeImage()">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="lista-cod-barras-container">
+        
+        <div class="lista-cod-barras">
+
+          <mat-list>
+            <span class="titulo">Código barras</span>
+            @for (codigoBarra of cadastroForm.getRawValue().codigoBarras; track codigoBarra) {
+            <mat-list-item>
+              <div class="lista-cod-barras-item">
+                <span>{{ codigoBarra }}</span>
+                <button mat-mini-fab (click)="removeCodBarraInputFormControl(codigoBarra)">
+                  <mat-icon>remove</mat-icon>
+                </button>
+  
+              </div>
+            </mat-list-item>
+            }
+          </mat-list>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Código de barras</mat-label>
+          <input matInput type="number" id="codBarrasInput">
+            <button matSuffix mat-icon-button (click)="addCodBarraInputFormControl()">
+              <mat-icon>add</mat-icon>
+            </button>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+  </ng-container>
+</cl-page-layout>

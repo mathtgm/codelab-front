@@ -17,6 +17,8 @@ import { CommonModule } from '@angular/common';
 import { controlErrorMessages } from '../../helpers/form-error.helper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 const form = [ReactiveFormsModule, FormsModule];
 const components = [
@@ -27,12 +29,15 @@ const components = [
   MatCheckboxModule,
   MatFormFieldModule,
   MatSlideToggleModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @Component({
   selector: 'cl-form-field',
   standalone: true,
   imports: [...form, ...components, IMaskModule, CommonModule],
+  providers: [MatDatepickerModule],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
 })

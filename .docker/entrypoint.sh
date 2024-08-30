@@ -1,5 +1,4 @@
 #!/bin/bash
-
 rm -rf ./dist
 
 npm cache clean --force

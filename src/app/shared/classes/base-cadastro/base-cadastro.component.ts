@@ -71,6 +71,8 @@ export abstract class BaseCadastroComponent<TData extends { id: number }>
 
       this.patchFormForEdit(res.data);
     });
+
+    
   }
 
   protected patchFormForEdit(payload: TData): void {

@@ -29,6 +29,13 @@
       <span class="field-label">{{ label }}</span>
     </mat-checkbox>
 
+    <mat-form-field *ngSwitchCase="3" >
+      <input matInput [matDatepicker]="picker" [formControlName]="field.formControlName">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
     <mat-slide-toggle
       *ngSwitchCase="4"
       [formControlName]="field.formControlName"
@@ -36,7 +43,10 @@
     >
       {{ label }}
     </mat-slide-toggle>
+    
   </ng-container>
+
+  
 
   <mat-error>{{ error }}</mat-error>
 </form>

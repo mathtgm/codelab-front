@@ -1,0 +1,58 @@
+img {
+    box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.2431372549);
+    padding: .5rem;
+}
+
+.imagem {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    
+}
+
+.botoesImagem {
+    display: flex;
+    flex-direction: row;
+}
+
+.botoesImagem button {
+    margin: 1rem .25rem 0 0;
+}
+
+::ng-deep .form-fields {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: auto;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.lista-cod-barras-container {
+    padding: .25rem;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+
+    .lista-cod-barras {
+        height: 100%;
+    }
+    .lista-cod-barras-item{ 
+        display: flex;
+        align-items: center;
+        align-content: space-between;
+
+        span {
+            width: 100%;
+        }
+    }
+
+    .mat-mdc-mini-fab {
+        box-shadow: none;
+    }
+
+}
+
+.form-fields {
+    display: flex;
+}
