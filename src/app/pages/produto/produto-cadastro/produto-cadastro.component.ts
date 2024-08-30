@@ -145,13 +145,14 @@ export class ProdutoCadastroComponent extends BaseCadastroComponent<IProduto> {
   }
 
   handleImageBaseDataURL() {
-    let prefix = ''
     if(this.tmpImg.split(',')[1] === undefined) {
       console.log(this.cadastroForm.get('imagem')!.getRawValue())
       let img = this.cadastroForm.get('imagem')?.getRawValue();
       let imgURL = this.fileToDataURL(img);
       this.cadastroForm.get('imagem')?.setValue(imgURL);
       this.cadastroForm.get('imagem')?.getRawValue();
+    } else {
+      this.cadastroForm.get('imagem')!.setValue(this.tmpImg.split(',')[1]);
     }
     
   }
