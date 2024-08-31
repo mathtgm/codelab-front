@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Buffer } from 'buffer';
 
 const actions = [
   BackActionComponent,
@@ -53,9 +54,11 @@ const mat = [
 export class ProdutoCadastroComponent extends BaseCadastroComponent<IProduto> {
 
   tmpImg: string = '../../../assets/images/image-not-found.png';
+  imgPrefix = 'data:image/png;base64,';
 
   constructor(private readonly _produtoService: ProdutoService, protected override readonly _injector: Injector) {
     super(_produtoService, _injector);
+    this.initImageWatcher();
   }
 
   cadastroFields: IFormField[] = [
@@ -111,6 +114,15 @@ export class ProdutoCadastroComponent extends BaseCadastroComponent<IProduto> {
     super.save(addNew);
   }
 
+  initImageWatcher() {
+    this.cadastroForm.get('imagem')!.valueChanges.subscribe((value) => {
+      let baseURLData = this.bufferToBase(value);
+      
+      this.tmpImg = this.imgPrefix.concat(baseURLData);
+
+    });
+  }
+
   fileBrowser() {
     document.getElementById('arquivo')!.click();
   }
@@ -130,31 +142,29 @@ export class ProdutoCadastroComponent extends BaseCadastroComponent<IProduto> {
       this.fileToDataURL(fileImage)
         .then(data => {
           this.tmpImg = data as string
-          this.cadastroForm.get('imagem')!.setValue(data);
         });
     }
   }
 
-  fileToDataURL(imagem: any){
+  handleImageBaseDataURL() {
+    let base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+    if (!base64regex.test(this.tmpImg)) {
+      this.cadastroForm.get('imagem')!.setValue(this.tmpImg.replace(this.imgPrefix, '').replace(' ', ''));
+    }
+
+  }
+
+  bufferToBase(buffer: Buffer) {
+    return Buffer.from(buffer).toString('base64');
+  }
+
+  fileToDataURL(imagem: any) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(imagem as Blob);
       reader.onload = () => resolve(reader.result);
       reader.onerror = error => reject(error);
     });
-  }
-
-  handleImageBaseDataURL() {
-    if(this.tmpImg.split(',')[1] === undefined) {
-      console.log(this.cadastroForm.get('imagem')!.getRawValue())
-      let img = this.cadastroForm.get('imagem')?.getRawValue();
-      let imgURL = this.fileToDataURL(img);
-      this.cadastroForm.get('imagem')?.setValue(imgURL);
-      this.cadastroForm.get('imagem')?.getRawValue();
-    } else {
-      this.cadastroForm.get('imagem')!.setValue(this.tmpImg.split(',')[1]);
-    }
-    
   }
 
   removeImage() {
