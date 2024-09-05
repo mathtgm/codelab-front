@@ -118,7 +118,10 @@ export class ProdutoCadastroComponent extends BaseCadastroComponent<IProduto> {
     this.cadastroForm.get('imagem')!.valueChanges.subscribe((value) => {
       let baseURLData = this.bufferToBase(value);
       
-      this.tmpImg = this.imgPrefix.concat(baseURLData);
+      if(baseURLData != '') {
+        this.tmpImg = this.imgPrefix.concat(baseURLData);
+      }
+      
 
     });
   }
@@ -155,7 +158,7 @@ export class ProdutoCadastroComponent extends BaseCadastroComponent<IProduto> {
   }
 
   bufferToBase(buffer: Buffer) {
-    return Buffer.from(buffer).toString('base64');
+    return Buffer.from(buffer).toString('binary');
   }
 
   fileToDataURL(imagem: any) {
@@ -166,7 +169,7 @@ export class ProdutoCadastroComponent extends BaseCadastroComponent<IProduto> {
       reader.onerror = error => reject(error);
     });
   }
-
+  
   removeImage() {
     let fileInput = document.getElementById('arquivo') as HTMLInputElement;
     fileInput.files = null;
